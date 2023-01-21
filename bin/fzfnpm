@@ -1,3 +1,5 @@
+#!/usr/bin/env bash
+
 file="package.json"
 if [ ! -e "$file" ]; then
     echo "No $file file 🫥"
