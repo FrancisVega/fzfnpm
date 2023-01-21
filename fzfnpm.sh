@@ -1,3 +1,4 @@
+#!/bin/bash
 cat package.json |
 sed -n '/scripts/,/}/p' |
 tail -n +2 |
