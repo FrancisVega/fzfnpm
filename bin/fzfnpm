@@ -7,13 +7,8 @@ if [ ! -e "$file" ]; then
 fi
 
 
-cat package.json |
-sed -n '/scripts/,/}/p' |
-tail -n +2 |
-sed '$d'|
-grep -E '"[a-z]' |
-sed 's/^[[:space:]]*//g'|
-sed 's/^"//g' | sed 's/":/ ➖/g' |
-awk '{print $1}' |
+jq '.scripts | to_entries | .[] | .key' package.json |
+sed 's/"//g' |
+grep -E '^\w' |
 fzf --no-info --pointer=🚀 --prompt="🔥 " --header="Type, vim or arrow keys then <Enter>" |
 xargs -I _ npm run _
