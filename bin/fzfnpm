@@ -1,14 +1,68 @@
 #!/usr/bin/env bash
 
+while getopts "hv" opt; do
+  case $opt in
+    h)
+      echo "Run any npm script with fzf, just type fzfnpm and hit Enter"
+      exit 0
+      ;;
+    v)
+      echo "version 0.7.0"
+      exit 0
+      ;;
+    \?)
+      echo "Invalid option: -$OPTARG"
+      exit 1
+      ;;
+  esac
+done
+
 file="package.json"
 if [ ! -e "$file" ]; then
     echo "No $file file 🫥"
 	exit 1
 fi
 
+package="npm (default)"
+if [ -e "yarn.lock" ]; then
+  package="yarn"
+fi
+
+if [ -e "pnpm-lock.yaml" ]; then
+  package="pnpm"
+fi
+
+if [ -e "package-lock.json" ]; then
+  package="pnpm"
+fi
+
+function run_command {
+  while read line; do
+    case $package in
+      pnpm)
+        pnpm run $line
+        exit 0
+        ;;
+      yarn)
+        yarn $line
+        exit 0
+        ;;
+      npm)
+        npm run $line
+        exit 0
+        ;;
+      *)
+        npm run $line
+        exit 0
+        ;;
+    esac
+  done
+  exit 0
+}
 
 jq '.scripts | to_entries | .[] | .key' package.json |
 sed 's/"//g' |
 grep -E '^\w' |
-fzf --no-info --pointer=🚀 --prompt="🔥 " --header="Type, vim or arrow keys then <Enter>" |
-xargs -I _ npm run _
+fzf --no-info --pointer=🚀 --prompt="🔥 " --header="Select script and hit <Enter> to run with $package" |
+run_command
+exit 0
