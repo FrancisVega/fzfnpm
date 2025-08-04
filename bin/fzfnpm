@@ -36,8 +36,18 @@ if [ -e "package-lock.json" ]; then
   package="npm"
 fi
 
+# Get the last selected script from cache
+last_script_file="/tmp/fzfnpm_last_script_$(pwd | md5sum | cut -d' ' -f1)"
+last_script=""
+if [ -f "$last_script_file" ]; then
+  last_script=$(cat "$last_script_file")
+fi
+
 function run_command {
   while read line; do
+    # Save the selected script for next time
+    echo "$line" > "$last_script_file"
+    
     case $package in
       pnpm)
         pnpm run $line
@@ -59,9 +69,16 @@ function run_command {
   exit 0
 }
 
-jq '.scripts | to_entries | .[] | .key' package.json |
-sed 's/"//g' |
-grep -E '^\w' |
+# Get scripts and reorder with last used at top
+scripts=$(jq '.scripts | to_entries | .[] | .key' package.json | sed 's/"//g' | grep -E '^\w')
+
+if [ -n "$last_script" ]; then
+  # Put last script at the top, then the rest
+  echo "$last_script"
+  echo "$scripts" | grep -v "^$last_script$"
+else
+  echo "$scripts"
+fi |
 fzf --no-info --pointer=🚀 --prompt="🔥 [$package] " --header="Select script and hit <Enter> to run with $package" |
 run_command
 exit 0
