@@ -7,7 +7,7 @@ while getopts "hv" opt; do
       exit 0
       ;;
     v)
-      echo "version 0.7.0"
+      echo "version 0.8.0"
       exit 0
       ;;
     \?)
@@ -37,7 +37,7 @@ if [ -e "package-lock.json" ]; then
 fi
 
 # Get the last selected script from cache
-last_script_file="/tmp/fzfnpm_last_script_$(pwd | md5sum | cut -d' ' -f1)"
+last_script_file="/tmp/fzfnpm_last_script_$(pwd | md5 -q)"
 last_script=""
 if [ -f "$last_script_file" ]; then
   last_script=$(cat "$last_script_file")
@@ -45,25 +45,24 @@ fi
 
 function run_command {
   while read line; do
+    [ -z "$line" ] && exit 0
     # Save the selected script for next time
     echo "$line" > "$last_script_file"
-    
+
     case $package in
       pnpm)
-        pnpm run $line
+        pnpm run "$line" < /dev/tty
         ;;
       yarn)
-        yarn $line
+        yarn "$line" < /dev/tty
         ;;
       npm)
-        npm run $line
+        npm run "$line" < /dev/tty
         ;;
       *)
-        npm run $line
+        npm run "$line" < /dev/tty
         ;;
     esac
-    # Wait for the command to complete before exiting
-    wait $!
     exit $?
   done
   exit 0
