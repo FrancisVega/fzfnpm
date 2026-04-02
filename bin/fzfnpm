@@ -7,7 +7,7 @@ while getopts "hv" opt; do
       exit 0
       ;;
     v)
-      echo "version 0.8.0"
+      echo "version 0.9.0"
       exit 0
       ;;
     \?)
