@@ -28,7 +28,7 @@ sudo apt install fzf jq
 ## Install
 
 ```bash
-curl -fsSL https://raw.githubusercontent.com/FrancisVega/fzfnpmscript/main/install.sh | bash
+curl -fsSL https://raw.githubusercontent.com/FrancisVega/fzfnpm/main/install.sh | bash
 ```
 
 This installs the latest release into `~/.local/bin` (override the directory with `FZFNPM_INSTALL_DIR`). Make sure that directory is on your `PATH`. Pin a specific version with `FZFNPM_VERSION=v0.10.0`.
@@ -37,7 +37,7 @@ This installs the latest release into `~/.local/bin` (override the directory wit
 <summary>Manual install (latest from <code>main</code>)</summary>
 
 ```bash
-curl -fsSL https://raw.githubusercontent.com/FrancisVega/fzfnpmscript/main/bin/fzfnpm -o ~/.local/bin/fzfnpm
+curl -fsSL https://raw.githubusercontent.com/FrancisVega/fzfnpm/main/bin/fzfnpm -o ~/.local/bin/fzfnpm
 chmod +x ~/.local/bin/fzfnpm
 ```
 

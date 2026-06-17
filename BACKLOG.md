@@ -10,7 +10,7 @@ Las casillas marcadas (`[x]`) están hechas; las vacías (`[ ]`) están pendient
 **Objetivo:** sustituir el tap de Homebrew por un instalador de una línea, sin mantenimiento de fórmulas.
 
 ```bash
-curl -fsSL https://raw.githubusercontent.com/FrancisVega/fzfnpmscript/main/install.sh | bash
+curl -fsSL https://raw.githubusercontent.com/FrancisVega/fzfnpm/main/install.sh | bash
 ```
 
 **Motivo:** mantener el tap (`FrancisVega/taps`) es un engorro y añade fricción a cada release.

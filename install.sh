@@ -2,7 +2,7 @@
 #
 # fzfnpm installer
 #
-#   curl -fsSL https://raw.githubusercontent.com/FrancisVega/fzfnpmscript/main/install.sh | bash
+#   curl -fsSL https://raw.githubusercontent.com/FrancisVega/fzfnpm/main/install.sh | bash
 #
 # Environment variables:
 #   FZFNPM_INSTALL_DIR   Target directory for the binary (default: ~/.local/bin)
@@ -10,7 +10,7 @@
 #
 set -euo pipefail
 
-REPO="FrancisVega/fzfnpmscript"
+REPO="FrancisVega/fzfnpm"
 BIN_DIR="${FZFNPM_INSTALL_DIR:-$HOME/.local/bin}"
 TARGET="${BIN_DIR}/fzfnpm"
 
