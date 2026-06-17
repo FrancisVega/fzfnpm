@@ -36,8 +36,19 @@ if [ -e "package-lock.json" ]; then
   package="npm"
 fi
 
+# Portable hash of the current directory (macOS has `md5`, Linux has `md5sum`)
+function hash_cwd {
+  if command -v md5sum >/dev/null 2>&1; then
+    pwd | md5sum | cut -d' ' -f1
+  elif command -v md5 >/dev/null 2>&1; then
+    pwd | md5 -q
+  else
+    pwd | cksum | cut -d' ' -f1
+  fi
+}
+
 # Get the last selected script from cache
-last_script_file="/tmp/fzfnpm_last_script_$(pwd | md5 -q)"
+last_script_file="/tmp/fzfnpm_last_script_$(hash_cwd)"
 last_script=""
 if [ -f "$last_script_file" ]; then
   last_script=$(cat "$last_script_file")
