@@ -6,15 +6,13 @@
 #
 # Environment variables:
 #   FZFNPM_INSTALL_DIR   Target directory for the binary (default: ~/.local/bin)
-#   FZFNPM_VERSION       Git ref (tag/branch) to install (default: main)
+#   FZFNPM_VERSION       Git ref to install (default: latest release; use 'main' for dev)
 #
 set -euo pipefail
 
 REPO="FrancisVega/fzfnpmscript"
-VERSION="${FZFNPM_VERSION:-main}"
 BIN_DIR="${FZFNPM_INSTALL_DIR:-$HOME/.local/bin}"
 TARGET="${BIN_DIR}/fzfnpm"
-SRC_URL="https://raw.githubusercontent.com/${REPO}/${VERSION}/bin/fzfnpm"
 
 info() { printf '\033[1;34m==>\033[0m %s\n' "$*"; }
 warn() { printf '\033[1;33m[!]\033[0m %s\n' "$*" >&2; }
@@ -22,13 +20,31 @@ err()  { printf '\033[1;31m[x]\033[0m %s\n' "$*" >&2; }
 
 # --- pick a downloader -------------------------------------------------------
 if command -v curl >/dev/null 2>&1; then
+  fetch()    { curl -fsSL "$1"; }
   download() { curl -fsSL "$1" -o "$2"; }
 elif command -v wget >/dev/null 2>&1; then
+  fetch()    { wget -qO- "$1"; }
   download() { wget -qO "$2" "$1"; }
 else
   err "Necesitas curl o wget para instalar fzfnpm."
   exit 1
 fi
+
+# --- resolve version ---------------------------------------------------------
+# Por defecto instala la última release (tag) para que sea reproducible.
+# Override con FZFNPM_VERSION=vX.Y.Z, o FZFNPM_VERSION=main para desarrollo.
+if [ -n "${FZFNPM_VERSION:-}" ]; then
+  VERSION="$FZFNPM_VERSION"
+else
+  VERSION="$(fetch "https://api.github.com/repos/${REPO}/releases/latest" 2>/dev/null \
+    | grep '"tag_name":' | head -1 | sed -E 's/.*"tag_name": *"([^"]+)".*/\1/' || true)"
+  if [ -z "$VERSION" ]; then
+    warn "No pude resolver la última release; usando 'main'."
+    VERSION="main"
+  fi
+fi
+
+SRC_URL="https://raw.githubusercontent.com/${REPO}/${VERSION}/bin/fzfnpm"
 
 # --- download ----------------------------------------------------------------
 info "Instalando fzfnpm (${VERSION}) en ${TARGET}"
