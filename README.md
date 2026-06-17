@@ -14,10 +14,34 @@ A simple way to launch npm scripts from a package.json using fzf.
 - **Bookmark system** - Your last used script appears at the top for quick access (just press Enter again)
 - **Project-specific memory** - Each project remembers its own script history
 
-## Install with homebrew
+## Requirements
+
+`fzfnpm` needs [`fzf`](https://github.com/junegunn/fzf) and [`jq`](https://jqlang.github.io/jq/) on your `PATH`:
 
 ```bash
-brew tap FrancisVega/taps
-brew install fzfnpm
+# macOS
+brew install fzf jq
+# Debian/Ubuntu
+sudo apt install fzf jq
 ```
+
+## Install
+
+```bash
+curl -fsSL https://raw.githubusercontent.com/FrancisVega/fzfnpmscript/main/install.sh | bash
+```
+
+This installs the `fzfnpm` script into `~/.local/bin` (override with `FZFNPM_INSTALL_DIR`). Make sure that directory is on your `PATH`.
+
+<details>
+<summary>Manual install</summary>
+
+```bash
+curl -fsSL https://raw.githubusercontent.com/FrancisVega/fzfnpmscript/main/bin/fzfnpm -o ~/.local/bin/fzfnpm
+chmod +x ~/.local/bin/fzfnpm
+```
+
+</details>
+
+> **Homebrew (deprecated):** the `FrancisVega/taps` tap is no longer maintained. Use the install script above.
 
