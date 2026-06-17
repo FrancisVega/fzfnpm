@@ -5,7 +5,7 @@ Las casillas marcadas (`[x]`) están hechas; las vacías (`[ ]`) están pendient
 
 ---
 
-## 🎯 P1 — Instalación nativa (salir de Homebrew)
+## ✅ P1 — Instalación nativa (salir de Homebrew) — COMPLETADO
 
 **Objetivo:** sustituir el tap de Homebrew por un instalador de una línea, sin mantenimiento de fórmulas.
 
@@ -22,11 +22,11 @@ curl -fsSL https://raw.githubusercontent.com/FrancisVega/fzfnpmscript/main/insta
   - [x] Verificar dependencias (`fzf`, `jq`) y dar instrucciones claras si faltan (brew/apt/dnf/pacman).
   - [x] Avisar si `BIN_DIR` no está en el `PATH` y cómo añadirlo.
   - [x] Salir con código ≠ 0 ante cualquier fallo (`set -euo pipefail` + sanity check de la descarga).
-  - [ ] ⏳ Por defecto descarga desde `main` (vía `FZFNPM_VERSION`); falta apuntar a **último release con tag** para reproducibilidad.
-- [x] Actualizar `README.md`: instalación curl-first; Homebrew marcado como deprecado.
-- [ ] Soporte de desinstalación: `fzfnpm --uninstall` o `uninstall.sh`.
-- [ ] Empezar a publicar **GitHub Releases con tags** (`v0.9.0`, …) para que el instalador fije versión.
-- [ ] **Hacer push a `main`** del `install.sh` y del `bin/fzfnpm` corregido (hasta entonces el one-liner instala la versión vieja).
+  - [x] Instala la **última release** por defecto (resuelta vía API de GitHub); `FZFNPM_VERSION` fija una versión concreta o usa `main`.
+- [x] Actualizar `README.md`: instalación curl-first; Homebrew deprecado; documentado `--uninstall` y cómo fijar versión.
+- [x] Soporte de desinstalación: `fzfnpm --uninstall` (borra el binario y limpia la caché).
+- [x] Publicar **GitHub Releases con tags**: release `v0.10.0` (el instalador la resuelve como «latest»).
+- [x] Push a `main` hecho.
 - [ ] (Opcional) Soporte de auto-update: `fzfnpm --update` que re-ejecute el instalador.
 
 > ✅ Portabilidad (`md5`) ya resuelta en P2, así que el `curl | bash` ya no se rompe en Linux.
