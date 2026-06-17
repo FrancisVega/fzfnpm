@@ -43,8 +43,6 @@ chmod +x ~/.local/bin/fzfnpm
 
 </details>
 
-> **Homebrew (deprecated):** the `FrancisVega/taps` tap is no longer maintained. Use the install script above.
-
 ## Uninstall
 
 ```bash

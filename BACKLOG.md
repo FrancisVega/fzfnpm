@@ -23,7 +23,7 @@ curl -fsSL https://raw.githubusercontent.com/FrancisVega/fzfnpm/main/install.sh 
   - [x] Avisar si `BIN_DIR` no está en el `PATH` y cómo añadirlo.
   - [x] Salir con código ≠ 0 ante cualquier fallo (`set -euo pipefail` + sanity check de la descarga).
   - [x] Instala la **última release** por defecto (resuelta vía API de GitHub); `FZFNPM_VERSION` fija una versión concreta o usa `main`.
-- [x] Actualizar `README.md`: instalación curl-first; Homebrew deprecado; documentado `--uninstall` y cómo fijar versión.
+- [x] Actualizar `README.md`: instalación curl-first; Homebrew eliminado por completo; documentado `--uninstall` y cómo fijar versión.
 - [x] Soporte de desinstalación: `fzfnpm --uninstall` (borra el binario y limpia la caché).
 - [x] Publicar **GitHub Releases con tags**: release `v0.10.0` (el instalador la resuelve como «latest»).
 - [x] Push a `main` hecho.
