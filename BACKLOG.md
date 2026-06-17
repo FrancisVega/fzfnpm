@@ -47,8 +47,8 @@ curl -fsSL https://raw.githubusercontent.com/FrancisVega/fzfnpm/main/install.sh 
 ## ✨ P3 — UX / features
 
 - [x] **Preview en fzf:** mostrar el comando real de cada script (`--preview`) leyendo su valor de `package.json`.
-- [ ] **`--help` y `--version` largos** además de `-h`/`-v`; help que liste todas las opciones.
-- [ ] **Aviso si no hay scripts:** si `.scripts` está vacío o no existe, mensaje claro en vez de abrir `fzf` vacío.
+- [x] **`--help` y `--version` largos** además de `-h`/`-v`; help que liste todas las opciones.
+- [x] **Aviso si no hay scripts:** si `.scripts` está vacío o no existe, mensaje claro en vez de abrir `fzf` vacío.
 - [ ] (Opcional) Pasar argumentos extra al script (`fzfnpm -- --flag`).
 - [ ] (Opcional) Búsqueda de `package.json` hacia arriba en el árbol de directorios (monorepos).
 
