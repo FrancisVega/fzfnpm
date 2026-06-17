@@ -11,6 +11,7 @@ A simple way to launch npm scripts from a package.json using fzf.
 ## Features
 
 - **Smart package manager detection** - Automatically detects npm, yarn, or pnpm
+- **Command preview** - See the actual command each script runs as you browse, right from `package.json`
 - **Bookmark system** - Your last used script appears at the top for quick access (just press Enter again)
 - **Project-specific memory** - Each project remembers its own script history
 

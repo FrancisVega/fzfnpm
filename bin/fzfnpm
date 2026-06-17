@@ -20,7 +20,7 @@ while getopts "hv" opt; do
       exit 0
       ;;
     v)
-      echo "version 0.10.0"
+      echo "version 0.11.0"
       exit 0
       ;;
     \?)
@@ -95,6 +95,10 @@ function run_command {
 # Get scripts and reorder with last used at top
 scripts=$(jq '.scripts | to_entries | .[] | .key' package.json | sed 's/"//g' | grep -E '^\w')
 
+# Preview the real command each script runs (value of .scripts[name] in package.json).
+# The jq filter is single-quoted so $k reaches jq (bound via --arg); fzf shell-quotes {}.
+preview_cmd='jq -r --arg k {} '\''.scripts[$k] // empty'\'' package.json'
+
 if [ -n "$last_script" ]; then
   # Put last script at the top, then the rest
   echo "$last_script"
@@ -102,6 +106,6 @@ if [ -n "$last_script" ]; then
 else
   echo "$scripts"
 fi |
-fzf --no-info --pointer=🚀 --prompt="🔥 [$package] " --header="Select script and hit <Enter> to run with $package" |
+fzf --no-info --pointer=🚀 --prompt="🔥 [$package] " --header="Select script and hit <Enter> to run with $package" --preview "$preview_cmd" --preview-window=up:3:wrap |
 run_command
 exit 0
