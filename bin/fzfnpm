@@ -1,13 +1,26 @@
 #!/usr/bin/env bash
 
+if [ "${1:-}" = "--uninstall" ]; then
+  target="$(command -v fzfnpm 2>/dev/null || true)"
+  if [ -n "$target" ]; then
+    rm -f "$target" && echo "Removed $target"
+  else
+    echo "fzfnpm not found on PATH; nothing to remove."
+  fi
+  rm -f /tmp/fzfnpm_last_script_* 2>/dev/null || true
+  echo "fzfnpm uninstalled 👋"
+  exit 0
+fi
+
 while getopts "hv" opt; do
   case $opt in
     h)
       echo "Run any npm script with fzf, just type fzfnpm and hit Enter"
+      echo "  --uninstall   remove fzfnpm and clear its cache"
       exit 0
       ;;
     v)
-      echo "version 0.9.0"
+      echo "version 0.10.0"
       exit 0
       ;;
     \?)
